@@ -1,124 +1,108 @@
 package com.sinensia.vehiculos;
 
-import java.time.Duration;
-import java.time.Instant;
-
 import com.sinensia.interfaces.Conducible;
 
+/**
+ * Clase Coche que extiende de Vehiculo e implementa la interfaz Conducible
+ * 
+ * @author Kevin
+ */
 public class Coche extends Vehiculo implements Conducible {
 
 	protected final static int RUEDAS_DF = 4;
 
 	private int num_Ruedas;
-	private boolean enMarcha;
-	private Instant inicioViaje;
-	private Instant finViaje;
-	private double distanciaTotal;
-	
-
-	public Coche(String num_Matricula) {
-		super(num_Matricula);
-		this.num_Ruedas = RUEDAS_DF;
-		this.enMarcha = false;
-		this.inicioViaje = null;
-		this.finViaje = null;
-		this.distanciaTotal = 0;
-	}
 
 	public Coche(String num_Matricula, String combustible, String color, String motor) {
 		super(num_Matricula, combustible, color, motor);
 		this.num_Ruedas = RUEDAS_DF;
-		this.enMarcha = false;
-		this.inicioViaje = null;
-		this.finViaje = null;
-		this.distanciaTotal = 0;
 	}
 
 	public int getNum_Ruedas() {
 		return num_Ruedas;
 	}
-	
-	public double getDistanciaTotal() {
-		return distanciaTotal;
-	}
-	
-	private double calcularDistanciaRecorrida(long tiempoSegundos) {
-		
-		double velocidadConstante = 10;
-		double distancia = velocidadConstante * tiempoSegundos;
-		
-		return distancia;
-	}
-	
 
+	/**
+	 * Sobreescritura del método arrancar de la interfaz Conducible. Se verifica si
+	 * esta en marcha o no.
+	 */
 	@Override
 	public void arrancar() {
-		
-		if(!enMarcha) {
+
+		if (!enMarcha) {
+			System.out.println("El coche está arrancando.\n");
 			enMarcha = true;
-			inicioViaje = Instant.now();
-			System.out.println("El coche está arrancando.");
-		}else {
-			System.out.println("El coche ya arrancó.");
+			// Reinicio el tiempo al iniciar cada viaje
+			tiempo = 0;
+		} else {
+			System.out.println("El coche ya ha arrancado.\n");
 		}
+
 	}
 
+	/**
+	 * Sobreescritura del metodo avanzar de la interfaz Conducible
+	 * 
+	 */
 	@Override
-	public void avanzar(double metros) {
+	public void avanzar(double distancia, double tiempo) {
 
-		if(enMarcha) {
-			System.out.println("El coche ha avanzado " + metros + " metros.");
-			distanciaTotal = getDistanciaTotal() + metros;
-		}else {
-			System.out.println("No se puede avanzar, el coche no está en marcha.");
-		}
+		// El tiempo introducido por parametro se le añade al tiempo del constructor(Se
+		// actualiza)
+		this.tiempo += tiempo;
 
+		// Se actualiza el tiempoTotal de los viajes
+		tiempoTotal += tiempo;
+
+		// Se actualiza la distancia recorrida
+		espacioRecorrido += distancia;
+
+		// Se actualiza la distancia total
+		distanciaTotal += distancia;
+
+		System.out.println("Se ha avanzado " + distancia + " m en " + tiempo + " segundos.\n");
 	}
 
+	/**
+	 * Sobreescritura del metodo retroceder
+	 */
 	@Override
-	public void retroceder(double metros) {
-		
-		if(enMarcha) {
-			System.out.println("El coche ha retrocedido " + metros + " metros.");
-			distanciaTotal = getDistanciaTotal() - metros;
-		}else {
-			System.out.println("El coche no ha arrancado, no se puede retroceder.");
-		}
+	public void retroceder(double distancia) {
 
+		System.out.println("Retrocediendo " + distancia + " metros.\n");
 	}
 
+	/**
+	 * Sobreescritura del metodo parar de la interfaz Conducible. Si esta en marcha
+	 * el coche se para y se actualiza su estado a false. Se imprimen el tiempo
+	 * final, la distancia total y el tiempo total del viaje.
+	 */
 	@Override
 	public void parar() {
 
-	    if (enMarcha) {
-	        enMarcha = false;
-	        finViaje = Instant.now();
-	        System.out.println("El coche se ha detenido.");
+		if (enMarcha) {
+			System.out.println("El coche ha parado.\n");
 
-	        if (inicioViaje != null && finViaje != null) {
-	            Duration duracionViaje = Duration.between(inicioViaje, finViaje);
-	            long tiempoSegundos = duracionViaje.getSeconds();
+			enMarcha = false;
 
-	            if (tiempoSegundos > 0) {
-	                double distanciaTotal = calcularDistanciaRecorrida(tiempoSegundos);
-	                double velocidadMedia = distanciaTotal / tiempoSegundos;
+			// Asigno el valor de la variable tiempo a tiempoFinal para saber cuando termina
+			// el recorrido.
+			tiempoFinal = tiempo;
+			System.out.println("Tiempo final de viaje: " + tiempoFinal + " segundos.\n");
+			System.out.println("Distancia total recorrida: " + distanciaTotal + " metros.\n");
+			System.out.println("Tiempo total del viaje: " + tiempoTotal + " segundos.\n");
 
-	                System.out.println("Distancia recorrida: " + distanciaTotal + " metros.");
-	                System.out.println("Velocidad media: " + velocidadMedia + " m/s.");
-	            } else {
-	                System.out.println("El tiempo transcurrido ha sido de 0 segundos.");
-	            }
-	        } else {
-	            System.out.println("No hay tiempos registrados de inicio o fin del viaje.");
-	        }
-	    } else {
-	        System.out.println("El coche ya estaba detenido.");
-	    }
+			// Calculo la velocidad media del viaje
+			calcularVelocidad(distanciaTotal, tiempoTotal);
+
+		} else {
+			System.out.println("El coche ya esta parado.\n");
+		}
+
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nRuedas: " + num_Ruedas;
+		return super.toString();
 	}
-
 }

@@ -4,40 +4,58 @@ import com.sinensia.enums.Color;
 import com.sinensia.enums.TipoCombustible;
 import com.sinensia.enums.TipoMotor;
 
-
 /**
  * Clase Vehiculo. Posee constantes por defecto para el tipo de combustible,
- * color y motor. Posee atributos como num_Matricula, combustible, color y
- * motor.
+ * color y motor. Posee atributos como num_Matricula, combustible, color, tipo
+ * de motor. En mi enfoque al programa considero que todos los vehiculo tienen
+ * tiempo, tiempoFinal, distancia, distanciaTotal, tiempoTotal y si está en
+ * marcha.
  * 
  * @author Kevin.
  *
  */
-public abstract class Vehiculo{
+public abstract class Vehiculo {
 
 	protected final static TipoCombustible TIPO_COMBUSTIBLE_DF = TipoCombustible.GASOLINA;
 	protected final static Color COLOR_DF = Color.ROJO;
 	protected final static TipoMotor MOTOR_DF = TipoMotor.COMBUSTION;
 
-	protected static String num_Matricula;
+	protected final String num_Matricula;
 	protected TipoCombustible combustible;
 	protected Color color;
 	protected TipoMotor motor;
+	protected int espacioRecorrido;
+	protected double tiempo;
+	protected double tiempoFinal;
+	protected double distancia;
+	protected double distanciaTotal;
+	protected double tiempoTotal;
+	protected double velocidadTotal;
+	protected boolean enMarcha;
 
-	public Vehiculo(String num_Matricula) {
-		super();
-		Vehiculo.num_Matricula = num_Matricula;
-		this.combustible = TIPO_COMBUSTIBLE_DF;
-		this.color = COLOR_DF;
-		this.motor = MOTOR_DF;
-	}
-
+	/**
+	 * En el constructor inicializo las variables espacioRecorrido, teimpo,
+	 * tiempoFinal, distancia, distanciaTotal y tiempoTotal a 0
+	 * 
+	 * @param num_Matricula
+	 * @param combustible
+	 * @param color
+	 * @param motor
+	 */
 	public Vehiculo(String num_Matricula, String combustible, String color, String motor) {
 		super();
-		Vehiculo.num_Matricula = num_Matricula;
-		this.combustible = comprobartipoCombustible(combustible);
+		this.num_Matricula = num_Matricula;
+		this.combustible = comprobarTipoCombustible(combustible);
 		this.color = comprobarColor(color);
 		this.motor = comprobarTipoMotor(motor);
+		this.espacioRecorrido = 0;
+		this.tiempo = 0;
+		this.tiempoFinal = 0;
+		this.distancia = 0;
+		this.distanciaTotal = 0;
+		this.velocidadTotal = 0;
+		this.tiempoTotal = 0;
+		
 	}
 
 	public String getNum_Matricula() {
@@ -62,7 +80,7 @@ public abstract class Vehiculo{
 	 * @param tipo representa el string que se le pase al constructor.
 	 * @return
 	 */
-	private TipoCombustible comprobartipoCombustible(String tipo) {
+	private TipoCombustible comprobarTipoCombustible(String tipo) {
 
 		// Bucle para recorrer el enum de TipoCombustible si el string es igual a uno de
 		// los elementos, lo devuelve.
@@ -113,23 +131,17 @@ public abstract class Vehiculo{
 	}
 
 	/**
-	 * Metodo que comprueba la matricula.
-	 * 
-	 * @param num_Matricula
-	 * @return true si es valida
-	 * @return false si es invalida
+	 * Método calcularVelocidad();
 	 */
-	public boolean comprobarMatricula(String num_Matricula) {
-
-		if (getNum_Matricula().toUpperCase().matches("^[0-9]{4}[A-Z]{3}$")) {
-			System.out.println("Matrícula válida.");
-			return true;
-
-		} else {
-
-			System.out.println("Matrícula inválida.");
-			return false;
+	protected void calcularVelocidad(double distancia, double tiempo) {
+		// Si el tiempo o distancia es 0 se lanzará una IllegalArgumentException
+		if (tiempo == 0 || distancia == 0) {
+			throw new IllegalArgumentException("El tiempo o la distancia no pueden ser cero.");
 		}
+
+		// Redondeo a dos decimales velocidad
+		double velocidad = Math.round((distancia / tiempo) * 100 / 100d);
+		System.out.println("La velocidad media es de: " + velocidad + " m/s.\n");
 	}
 
 	@Override
