@@ -7,7 +7,7 @@ import com.sinensia.interfaces.Conducible;
  * 
  * @author Kevin
  */
-public class Coche extends Vehiculo implements Conducible {
+public final class Coche extends Vehiculo implements Conducible {
 
 	protected final static int RUEDAS_DF = 4;
 

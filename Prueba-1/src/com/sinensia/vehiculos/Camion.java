@@ -8,7 +8,7 @@ import com.sinensia.interfaces.Conducible;
 /**
  * Clase Camión que extiende de Vehiculo e mplementa la interfaz Conducible
  */
-public class Camion extends Vehiculo implements Conducible {
+public final class Camion extends Vehiculo implements Conducible {
 
 	// Lista que almacenara velocidades
 	private List<Double> tacometro;
@@ -30,16 +30,16 @@ public class Camion extends Vehiculo implements Conducible {
 	@Override
 	protected void calcularVelocidad(double distancia, double tiempo) {
 	    if (tacometro.isEmpty()) {
-	        System.out.println("No hay datos en el tacómetro para calcular la velocidad media.");
+	        System.out.println("No hay datos en el tacómetro para mostrar las .");
 	    } else {
-	        double sumaVelocidades = 0.0;
+	        double velocidades = 0.0;
 
 	        for (double velocidad : tacometro) {
-	            sumaVelocidades += velocidad;
+	            velocidades += velocidad;
 	        }
 
-	        double velocidadMedia = sumaVelocidades / tacometro.size();
-	        System.out.println("La velocidad media de todo recorrido fue: " + velocidadMedia + " m/s.\n");
+	        double velocidadMedia = velocidades / tacometro.size();
+	        System.out.println("La velocidad media de todo el recorrido fue: " + velocidadMedia + " m/s.\n");
 	    }
 	}
 
@@ -110,7 +110,7 @@ public class Camion extends Vehiculo implements Conducible {
 
 		System.out.println("Se ha avanzado " + distancia + " m en " + tiempo + " segundos.");
 		System.out.println("La velocidad media del recorrido es : " + velocidad + " m/s.\n");
-		calcularVelocidad(distanciaTotal, tiempoTotal);
+		
 	}
 
 	@Override

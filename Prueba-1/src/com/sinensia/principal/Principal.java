@@ -7,7 +7,7 @@ import com.sinensia.vehiculos.Camion;
 import com.sinensia.vehiculos.Coche;
 import com.sinensia.vehiculos.Vehiculo;
 
-public class Principal {
+public final class Principal {
 
 	public static void main(String[] args) {
 		Vehiculo camion = new Camion("1234ABC", "Gasoleo", "Vinotinto", "Combustion");
@@ -21,12 +21,14 @@ public class Principal {
 
 		for (Vehiculo vehiculo : vehiculos) {
 			if (vehiculo instanceof Camion) {
+				System.out.println(camion + "\n");
 				((Camion) vehiculo).arrancar();
 				((Camion) vehiculo).avanzar(3000, 300);
 				((Camion) vehiculo).parar();
 				((Camion) vehiculo).arrancar();
 				((Camion) vehiculo).avanzar(50, 300);
 				((Camion) vehiculo).parar();
+				
 			}
 
 		}
