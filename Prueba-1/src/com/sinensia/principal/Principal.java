@@ -1,4 +1,4 @@
-package com.sinensia.test;
+package com.sinensia.principal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,8 @@ import com.sinensia.vehiculos.Vehiculo;
 public class Principal {
 
 	public static void main(String[] args) {
-
 		Vehiculo camion = new Camion("1234ABC", "Gasoleo", "Vinotinto", "Combustion");
-		
+
 		Vehiculo coche = new Coche("1234ABC", "Gasoleo", "Vinotinto", "Combustion");
 
 		List<Vehiculo> vehiculos = new ArrayList<>();
@@ -29,8 +28,8 @@ public class Principal {
 				((Camion) vehiculo).avanzar(50, 300);
 				((Camion) vehiculo).parar();
 			}
+
 		}
 
 	}
-
 }
