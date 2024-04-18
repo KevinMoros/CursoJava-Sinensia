@@ -11,20 +11,23 @@ public class Principal {
 
 	public static void main(String[] args) {
 
-		Vehiculo coche = new Camion("1234ABC", "Gasoleo", "Vinotinto", "Combustion");
+		Vehiculo camion = new Camion("1234ABC", "Gasoleo", "Vinotinto", "Combustion");
+		
+		Vehiculo coche = new Coche("1234ABC", "Gasoleo", "Vinotinto", "Combustion");
 
 		List<Vehiculo> vehiculos = new ArrayList<>();
 
 		vehiculos.add(coche);
+		vehiculos.add(camion);
 
 		for (Vehiculo vehiculo : vehiculos) {
-			System.out.println("====Datos Tacometro====");
 			if (vehiculo instanceof Camion) {
 				((Camion) vehiculo).arrancar();
-				((Camion) vehiculo).avanzar(50, 300);
-				((Camion) vehiculo).avanzar(500, 300);
+				((Camion) vehiculo).avanzar(3000, 300);
 				((Camion) vehiculo).parar();
-				
+				((Camion) vehiculo).arrancar();
+				((Camion) vehiculo).avanzar(50, 300);
+				((Camion) vehiculo).parar();
 			}
 		}
 

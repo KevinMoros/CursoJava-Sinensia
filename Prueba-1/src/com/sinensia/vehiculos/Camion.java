@@ -39,7 +39,7 @@ public class Camion extends Vehiculo implements Conducible {
 	        }
 
 	        double velocidadMedia = sumaVelocidades / tacometro.size();
-	        System.out.println("La velocidad media del recorrido fue: " + velocidadMedia + " m/s.\n");
+	        System.out.println("La velocidad media de todo recorrido fue: " + velocidadMedia + " m/s.\n");
 	    }
 	}
 
@@ -106,13 +106,11 @@ public class Camion extends Vehiculo implements Conducible {
 		
 		double velocidad = Math.round((distancia/tiempo) * 100.0) / 100.0;
 		
-		velocidadTotal += velocidad;
-		
 	    tacometro.add(velocidad);
 
 		System.out.println("Se ha avanzado " + distancia + " m en " + tiempo + " segundos.");
 		System.out.println("La velocidad media del recorrido es : " + velocidad + " m/s.\n");
-		//calcularVelocidad(distanciaTotal, tiempoTotal);
+		calcularVelocidad(distanciaTotal, tiempoTotal);
 	}
 
 	@Override

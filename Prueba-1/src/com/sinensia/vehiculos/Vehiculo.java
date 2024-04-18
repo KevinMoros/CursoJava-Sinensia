@@ -30,7 +30,6 @@ public abstract class Vehiculo {
 	protected double distancia;
 	protected double distanciaTotal;
 	protected double tiempoTotal;
-	protected double velocidadTotal;
 	protected boolean enMarcha;
 
 	/**
@@ -53,7 +52,6 @@ public abstract class Vehiculo {
 		this.tiempoFinal = 0;
 		this.distancia = 0;
 		this.distanciaTotal = 0;
-		this.velocidadTotal = 0;
 		this.tiempoTotal = 0;
 		
 	}
