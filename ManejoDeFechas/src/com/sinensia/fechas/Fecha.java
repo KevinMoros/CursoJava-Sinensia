@@ -9,10 +9,13 @@ import java.time.Month;
 import java.time.MonthDay;
 import java.time.Period;
 import java.time.Year;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 public class Fecha {
 
@@ -94,7 +97,36 @@ public class Fecha {
 		System.out.println("El periodo que existe entre 3/2/2020 y el 5/7/2021 es de : " + periodo + "." );
 		
 		// Ver que fecha sale si sumamos el periodo anterior a la fecha 12/11/2022
-		LocalDate fecha8 = LocalDate.of(2022, 11, 12);
+		LocalDate fecha8 = LocalDate.of(2022, 11, 12).plusDays(periodo.getDays()).plusMonths(periodo.getMonths()).plusYears(periodo.getYears());
+		System.out.println("La fecha que sale es: " + fecha8 );
+		
+		//Ver que día de la semana era el 22/4/2022
+		LocalDate fecha9 = LocalDate.of(2022, 4, 22);
+		System.out.println(fecha9.getDayOfWeek());
+		
+		// Ver que día de la semana era hace tres día
+		LocalDate fecha10 = LocalDate.now();
+		System.out.println(fecha10.minusDays(3));
+		
+		// Indicar el nombre en castellano del mes actual
+		System.out.println(fecha10.getMonth().getDisplayName(TextStyle.FULL, new Locale("es", "ES")));
+		
+		//Ver que día de la semana era el primer día del mes de octubre de 1940
+		LocalDate fecha11 = YearMonth.of(1940, Month.OCTOBER).atEndOfMonth();
+		System.out.println(fecha11.getDayOfWeek());
+		
+		// Presentar la fecha correspondiente al día 253 del año 1989
+		
+		LocalDate fecha12 = LocalDate.ofYearDay(1989, 253);
+		System.out.println(fecha12);
+		
+		// Cuantos segundos han pasado desde las 10:15 hasta las 12:30
+		LocalTime hora1 = LocalTime.of(10, 15);
+		LocalTime hora2 = LocalTime.of(12, 30);
+		
+		System.out.println(hora1.until(hora2, ChronoUnit.SECONDS));
+		
+		
 		
 	}
 }
